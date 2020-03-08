@@ -1,6 +1,6 @@
 package com.example.bytefitjava.bytefit.controller;
 
-import com.example.bytefitjava.bytefit.model.Foods;
+import com.example.bytefitjava.bytefit.model.Food;
 import com.example.bytefitjava.bytefit.repository.FoodRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class FoodController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/foods")
-    public List<Foods> getAllFoods() {
+    public List<Food> getAllFoods() {
         return foodRepository.findAll();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/foods/{id}")
-    public ResponseEntity<Foods> getFoodsById(@PathVariable(value = "id") String foodId) throws IllegalStateException {
-        Foods food =
+    public ResponseEntity<Food> getFoodsById(@PathVariable(value = "id") String foodId) throws IllegalStateException {
+        Food food =
                 foodRepository
                         .findById(foodId)
                         .orElseThrow(() -> new IllegalStateException("Food not found on :: " + foodId));
@@ -36,7 +36,7 @@ public class FoodController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/foods")
-    public Foods newFood(@RequestBody Foods food) {
+    public Food newFood(@RequestBody Food food) {
         //need to add some validation around input here
         foodRepository.save(food);
         log.info("'{}' has been inserted into the database.", food.getFoodDesc());
@@ -46,7 +46,7 @@ public class FoodController {
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(path = "/foods/{id}")
     public void deleteFood(@PathVariable String id) {
-        Optional<Foods> food = foodRepository.findById(id);
+        Optional<Food> food = foodRepository.findById(id);
         try {
             if (food.isPresent()) {
                 log.info("'{}' is successfully deleted from the database", food.get().getFoodDesc());

@@ -3,7 +3,7 @@ package com.example.bytefitjava.bytefit.model;
 import lombok.Data;
 
 @Data
-public class Foods {
+public class Food {
 
     private String id;
     private String foodDesc;
@@ -38,7 +38,7 @@ public class Foods {
     private Boolean siteVisibility;
     private String userId;
 
-    public Foods(String foodDesc, Integer calories, Double carbs, Double fats, Double protein){
+    public Food(String foodDesc, Integer calories, Double carbs, Double fats, Double protein){
         this.foodDesc = foodDesc;
         this.calories = calories;
         this.carbs = carbs;
