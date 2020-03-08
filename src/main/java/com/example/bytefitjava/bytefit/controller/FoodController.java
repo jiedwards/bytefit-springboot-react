@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -31,6 +32,30 @@ public class FoodController {
                         .findById(foodId)
                         .orElseThrow(() -> new IllegalStateException("Food not found on :: " + foodId));
         return ResponseEntity.ok().body(food);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/foods")
+    public Foods newFood(@RequestBody Foods food) {
+        //need to add some validation around input here
+        foodRepository.save(food);
+        log.info("'{}' has been inserted into the database.", food.getFoodDesc());
+        return food;
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping(path = "/foods/{id}")
+    public void deleteFood(@PathVariable String id) {
+        Optional<Foods> food = foodRepository.findById(id);
+        try {
+            if (food.isPresent()) {
+                log.info("'{}' is successfully deleted from the database", food.get().getFoodDesc());
+                foodRepository.deleteById(id);
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+
     }
 
 }
