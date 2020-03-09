@@ -19,7 +19,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     @Override
     protected String getMappingBasePackage() {
-        return "com.example.bytefit.bytefit";
+        return "com.example.bytefitjava.bytefit";
     }
 
 }

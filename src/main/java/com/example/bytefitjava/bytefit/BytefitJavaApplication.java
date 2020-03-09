@@ -11,20 +11,22 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 @Slf4j
+@EnableMongoRepositories("com.example.bytefitjava.bytefit.repository")
 @EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class})
 @SpringBootApplication
 public class BytefitJavaApplication implements CommandLineRunner {
 
 	@Autowired
-	private FoodRepository foodRepository;
+	UserRepository userRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	FoodRepository foodRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BytefitJavaApplication.class, args);
@@ -36,15 +38,19 @@ public class BytefitJavaApplication implements CommandLineRunner {
 
 		if (!mongoOps.collectionExists("foods")) {
 			mongoOps.createCollection("foods");
-			log.warn("Foods collection created successfully.");
+			log.info("Foods collection created successfully.");
 			startupDataInsert("foodDataInsert.sh");
 
 		}
 		if (!mongoOps.collectionExists("users")) {
 			mongoOps.createCollection("users");
-			log.warn("Users collection created successfully.");
+			log.info("Users collection created successfully.");
 			startupDataInsert("userDataInsert.sh");
 		}
+
+		System.out.println("result" + mongoOps.findById("5e654b1d78d958ebf4dd8129", String.class, "foods"));
+//        mongoOps.insert((new Users("brandnewjacobo@hotmail.co.uk","jay123")), "users");
+
 	}
 
 	private void startupDataInsert(String fileName) {

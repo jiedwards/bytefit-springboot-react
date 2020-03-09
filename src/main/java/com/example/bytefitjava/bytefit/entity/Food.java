@@ -1,7 +1,9 @@
-package com.example.bytefitjava.bytefit.model;
+package com.example.bytefitjava.bytefit.entity;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "foods")
 @Data
 public class Food {
 

@@ -1,6 +1,6 @@
 package com.example.bytefitjava.bytefit.repository;
 
-import com.example.bytefitjava.bytefit.model.Food;
+import com.example.bytefitjava.bytefit.entity.Food;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

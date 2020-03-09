@@ -1,6 +1,6 @@
 package com.example.bytefitjava.bytefit.repository;
 
-import com.example.bytefitjava.bytefit.model.User;
+import com.example.bytefitjava.bytefit.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
